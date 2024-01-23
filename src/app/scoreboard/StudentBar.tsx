@@ -36,10 +36,10 @@ export default function StudentBar({name}: StudentBarProps) {
     };
     return(
         <div className="flex items-center m-2">
-            <span className="w-16 flex-shrink-0">{ name }</span>
-            <button className="btn ml-2" onClick={increment}>+</button>
+            <span className="w-24 flex-shrink-0 text-2xl">{ name }</span>
+            <button className="btn ml-2 text-xl" onClick={increment}>+</button>
             <input type="number" value={inputValue} onChange={handleInputChange} onBlur={handleInputBlur} className="mx-2 w-16 p-1 text-center border rounded"/>
-            <button className="btn mr-2" onClick={decrement}>-</button>
+            <button className="btn mr-2 text-xl" onClick={decrement}>-</button>
         </div>
     )
 }

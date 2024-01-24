@@ -1,28 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 interface StudentBarProps{
     name: string;
+    id: number;
+    initalScore: number;
 }
 
-export default function StudentBar({name}: StudentBarProps) {
-    const [count, setCount] = useState(0)
-    const [isAnimating, setIsAnimating] = useState(false);
+export default function StudentBar({name, id, initalScore}: StudentBarProps) {
+    const [count, setCount] = useState(initalScore)
     const [inputValue, setInputValue] = useState("0");
+    const isMounted = useRef(false)
 
     useEffect(() => {
         // Update the input value when the count changes
-        setInputValue(count.toString());
-    }, [count]);
-    function animateNumberChange() {
-        setIsAnimating(true);
-        setTimeout(() => setIsAnimating(false), 500); // Adjust the duration as needed
-    }
+        if(isMounted.current)
+        {
+            console.log(JSON.stringify({userId: id, newScore:  count}))
+            setInputValue(count.toString());
+            fetch('/api/users/', {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({userId: id, newScore:  count}),
+        })
+            .then((res)=>{
+                if(res.ok)
+                {
+                    return res.json()
+                }
+                else{
+                    throw new Error("Api Update fail")
+                }
+            })}
+            else{
+                isMounted.current = true
+            }
+        
+    }, [count, id]);
     function increment() {
         setCount(count + 1)
-        animateNumberChange()
     }
     function decrement() {
         setCount(count - 1)
-        animateNumberChange()
     }
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // Update the input value but don't update the count immediately

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState } from "react";
+import {useEffect, useState } from "react";
 interface StudentBarProps{
     name: string;
 }
@@ -9,14 +9,15 @@ export default function StudentBar({name}: StudentBarProps) {
     useEffect(()=>{
         setInputValue(count.toString())
     }, [count])
-    function increment() {
+    const increment = () => {
         setCount(count + 1)
     }
-    function decrement() {
+    const decrement = () => {
         setCount(count - 1)
     }
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // Update the input value but don't update the count immediately
+        event.preventDefault();
         setInputValue(event.target.value);
     };
     

@@ -1,6 +1,6 @@
 'use client'
 import StudentBar from "./StudentBar"
-const participants = ["Rani", "Gal", "Guy", "Yonathan", "Yoni", "Tom", "Avishai", "Netanel", "David", "Ilay", "Eitan"]
+const participants = ["Rani", "Liav","Gal", "Guy", "Yonathan", "Yoni", "Tom", "Avishai", "Netanel", "David", "Ilay", "Eitan"]
 export default function Page() {
     return(
         <div className="flex justify-center items-center min-h-screen">
